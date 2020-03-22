@@ -76,7 +76,6 @@ internal class PersonServiceImplTest {
     fun should_throw_an_exception_when_tries_to_get_one_and_resource_does_not_exists() {
         every { repository.getOne(entity.id) } throws EntityNotFoundException()
 
-
         assertThatExceptionOfType(ResourceNotFoundException::class.java)
                 .isThrownBy { service.getById(entity.id) }
 
