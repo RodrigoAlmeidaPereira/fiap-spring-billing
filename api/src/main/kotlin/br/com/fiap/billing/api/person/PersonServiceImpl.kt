@@ -16,6 +16,7 @@ class PersonServiceImpl(private val repository: PersonRepository) : PersonServic
         entity.doc = person.doc
         entity.enrollment = person.enrollment
         entity.name = person.name
+        entity.active = true
 
         return repository.save(entity)
     }
