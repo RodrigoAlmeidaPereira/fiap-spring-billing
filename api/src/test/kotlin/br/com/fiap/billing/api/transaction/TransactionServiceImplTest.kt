@@ -7,7 +7,7 @@ import io.mockk.verify
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.boot.test.mock.mockito.MockBean
+import com.ninjasquad.springmockk.MockkBean
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.util.*
 import javax.annotation.PostConstruct
@@ -16,7 +16,7 @@ import javax.persistence.EntityNotFoundException
 @ExtendWith(SpringExtension::class)
 internal class TransactionServiceImplTest {
 
-    @MockBean
+    @MockkBean
     private lateinit var repository : TransactionRepository
 
     private lateinit var service : TransactionService
@@ -92,11 +92,11 @@ internal class TransactionServiceImplTest {
     fun findByPersonDocWithSuccess() {
         val list = Arrays.asList(entity)
 
-        every { repository.findAll() } returns list
+        every { repository.findByPersonDoc("4321") } returns list
 
         Assertions.assertThat(service.findByPersonDoc("4321")).isEqualTo(list)
 
-        verify(exactly = 1) { repository.findAll() }
+        verify(exactly = 1) { repository.findByPersonDoc("4321") }
     }
 
 
