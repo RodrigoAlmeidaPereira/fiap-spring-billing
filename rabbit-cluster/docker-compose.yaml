@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  billing-rabbitmq:
+    container_name: biling-rabbitmq 
+    hostname: billing-rabbitmq
+    image: rabbitmq:management
+    volumes:
+      - billing-rabbitmq-volume:/var/lib/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - fiap-billing-network
+
+volumes:
+  billing-rabbitmq-volume:
+    driver: local
+
+networks:
+  fiap-billing-network:
+    name: fiap-billing-network
+

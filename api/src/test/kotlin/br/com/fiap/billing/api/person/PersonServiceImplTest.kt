@@ -23,6 +23,7 @@ internal class PersonServiceImplTest {
     private lateinit var repository: PersonRepository
 
     private lateinit var service: PersonService
+
     private val entity: Person = Person(id = 1, name = "Rodrigo", enrollment = "1234", doc = "4321", active = true)
 
     @PostConstruct

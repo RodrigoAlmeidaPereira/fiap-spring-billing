@@ -1,0 +1,38 @@
+version: '3.5'
+services:
+  ms:
+    build: .
+    image: fiap-billing-api:latest
+    container_name: fiap-biilling-api
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      ENV: local
+      DB_HOST_NAME: fiap-billing-db
+      DB_PORT: 5432
+      DB_NAME: fiap
+      DB_USERNAME: fiap
+      DB_PASSWORD: fiap
+    networks:
+      - fiap-billing-network
+  db:
+    image: kartoza/postgis
+    container_name: fiap-billing-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=fiap
+      - POSTGRES_PASS=fiap
+      - POSTGRES_DBNAME=fiap
+    volumes:
+      - fiap-billing-db-volume:/var/lib/postgresql
+    networks:
+      - fiap-billing-network
+networks:
+  fiap-billing-network:
+   name: fiap-billing-network
+   external: true
+volumes:
+  fiap-billing-db-volume:
+    driver: local
