@@ -1,6 +1,8 @@
 package br.com.fiap.billing.batchregistration.person.batch;
 
 import br.com.fiap.billing.batchregistration.person.Person;
+import br.com.fiap.billing.batchregistration.person.integration.PersonChannel;
+import br.com.fiap.billing.batchregistration.person.integration.PersonProducer;
 import lombok.AllArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
@@ -24,6 +26,7 @@ public class BatchPersonConfig {
 
     final private JobBuilderFactory jobBuilderFactory;
     final private StepBuilderFactory stepBuilderFactory;
+    final private PersonProducer personProducer;
 
     @Bean
     public Job personJob() {
@@ -41,7 +44,7 @@ public class BatchPersonConfig {
                 .<Person, Person> chunk(1)
                 .reader(new PersonItemReader())
                 .processor(new PersonProcessor())
-                .writer(new PersonWriter())
+                .writer(new PersonWriter(personProducer))
                 .build();
     }
 
