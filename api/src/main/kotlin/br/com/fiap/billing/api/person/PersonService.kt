@@ -14,4 +14,6 @@ interface PersonService {
 
     fun findAll(): List<Person>
 
+    fun findByDoc(doc: String): Person?
+
 }
