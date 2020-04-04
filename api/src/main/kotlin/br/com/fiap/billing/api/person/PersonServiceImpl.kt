@@ -44,4 +44,8 @@ class PersonServiceImpl(private val repository: PersonRepository) : PersonServic
     override fun findAll(): List<Person> {
         return repository.findAll()
     }
+
+    override fun findByDoc(doc: String): Person? {
+        return repository.findByDoc(doc)
+    }
 }

@@ -4,6 +4,8 @@ server:
 spring:
   profiles:
     active: ${ENV}
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
   datasource:
     url: jdbc:postgresql://${DB_HOST_NAME:localhost}:${DB_PORT:5432}/${DB_NAME:fiap}
     username: ${DB_USERNAME:fiap}
@@ -22,3 +24,33 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      binders:
+        billing-default:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: ${RABBIT_HOST:localhost}
+                port: ${RABBIT_PORT:5672}
+                username: ${RABBIT_USERNAME:guest}
+                password: ${RABBIT_PASSWORD:guest}
+      bindings:
+        person-queue:
+          destination: person
+          group: add
+          binder: billing-default
+          consumer:
+            maxAttempts: 2
+            backOffInitialInterval: 60000
+            backOffMaxInterval: 60000
+      rabbit:
+        bindings:
+          person-queue:
+            consumer:
+              auto-bind-dlq: true
+              republishToDlq: true

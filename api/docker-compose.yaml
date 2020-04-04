@@ -14,6 +14,11 @@ services:
       DB_NAME: fiap
       DB_USERNAME: fiap
       DB_PASSWORD: fiap
+      RABBIT_HOST: biling-rabbitmq
+      RABBIT_PORT: 5672
+
+      RABBIT_USERNAME: guest
+      RABBIT_PASSWORD: guest
     networks:
       - fiap-billing-network
   db:
