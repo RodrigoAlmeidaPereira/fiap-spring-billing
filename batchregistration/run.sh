@@ -7,7 +7,7 @@ function down_app_container() {
 
 function delete_latest_docker_image() {
     echo "Deleting latest docker image..."
-    docker rmi -f agronow-farm:latest
+    docker rmi -f billing-batch:latest
 }
 
 function build_application() {
