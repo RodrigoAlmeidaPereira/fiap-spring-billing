@@ -1,3 +1,6 @@
+server:
+  port: ${PORT:8081}
+
 spring:
   datasource:
     url: jdbc:h2:file:./DB
@@ -9,3 +12,28 @@ spring:
   batch:
     job:
       enabled: false
+
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      binders:
+        billing-default:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: ${RABBIT_HOST:localhost}
+                port: ${RABBIT_PORT:5672}
+                username: ${RABBIT_USERNAME:guest}
+                password: ${RABBIT_PASSWORD:guest}
+      bindings:
+        person-exchange:
+          destination: person
+          binder: billing-default
+      rabbit:
+        bindings:
+          person-queue:
+            consumer:
+              auto-bind-dlq: true
+              republishToDlq: true
