@@ -10,6 +10,8 @@ interface TransactionService {
 
     fun findById(id: Long): Transaction?
 
+    fun findAll(): List<Transaction>
+
     fun findByPersonDoc(doc : String) : List<Transaction>
 
 }

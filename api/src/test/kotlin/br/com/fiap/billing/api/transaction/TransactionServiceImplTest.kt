@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import com.ninjasquad.springmockk.MockkBean
 import org.springframework.test.context.junit.jupiter.SpringExtension
+import java.time.LocalDate
 import java.util.*
 import javax.annotation.PostConstruct
 import javax.persistence.EntityNotFoundException
@@ -22,7 +23,7 @@ internal class TransactionServiceImplTest {
     private lateinit var service : TransactionService
 
     private val person: Person = Person(id = 1, name = "Rodrigo", enrollment = "1234", doc = "4321", active = true)
-    private val entity : Transaction = Transaction(1, person, Date(), 425.5, 3)
+    private val entity : Transaction = Transaction(1, person, LocalDate.now(), 425.5, 3)
 
     @PostConstruct
     fun init(){
