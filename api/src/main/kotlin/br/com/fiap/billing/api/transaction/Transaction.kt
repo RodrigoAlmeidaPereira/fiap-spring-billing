@@ -2,6 +2,7 @@ package br.com.fiap.billing.api.transaction
 
 import br.com.fiap.billing.api.person.Person
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.opencsv.bean.CsvRecurse
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotNull

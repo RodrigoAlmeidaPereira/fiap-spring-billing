@@ -6,14 +6,17 @@ import br.com.fiap.billing.api.transaction.Transaction
 import br.com.fiap.billing.api.transaction.TransactionService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import java.io.IOException
 import java.time.LocalDate
-import java.util.*
+import javax.servlet.http.HttpServletResponse
 import kotlin.random.Random
+
 
 @RestController
 @RequestMapping("/transactions")
 class TransactionRestService(private val service : TransactionService,
-                             private val personService: PersonService) {
+                             private val personService: PersonService,
+                             private val csvWriter: TransactionCsvWriter) {
 
 
     @PostMapping
@@ -45,6 +48,13 @@ class TransactionRestService(private val service : TransactionService,
     fun simulate(){
         personService.findAll()
                 .forEach { createSimulateData(it) }
+    }
+
+    @Throws(IOException::class)
+    @GetMapping("/csv-report.csv")
+    fun csvReport(response: HttpServletResponse) {
+        response.setContentType("text/csv");
+        csvWriter.write(response.writer, service.findAll())
     }
 
     fun createSimulateData(person: Person) {

@@ -22,6 +22,7 @@
 		<h2.version>1.4.200</h2.version>
 		<springfox.version>2.9.2</springfox.version>
 		<postgresql.version>42.2.5</postgresql.version>
+		<opencsv.version>5.0</opencsv.version>
 	</properties>
 
 	<dependencies>
@@ -72,6 +73,11 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>${opencsv.version}</version>
 		</dependency>
 
 		<dependency>
