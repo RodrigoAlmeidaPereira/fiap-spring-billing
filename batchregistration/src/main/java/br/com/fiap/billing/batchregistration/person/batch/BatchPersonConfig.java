@@ -1,7 +1,6 @@
 package br.com.fiap.billing.batchregistration.person.batch;
 
 import br.com.fiap.billing.batchregistration.person.Person;
-import br.com.fiap.billing.batchregistration.person.integration.PersonChannel;
 import br.com.fiap.billing.batchregistration.person.integration.PersonProducer;
 import lombok.AllArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -9,16 +8,9 @@ import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.mapping.DefaultLineMapper;
-import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
-import org.springframework.batch.item.file.transform.Range;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 
 @Configuration
 @AllArgsConstructor
