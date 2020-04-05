@@ -10,9 +10,9 @@ create table person (
 create table transaction_ (
     id bigserial not null,
     cancelled boolean not null,
-    date_transaction timestamp not null,
-    quantity_plots int4 not null,
-    value_transaction float8 not null,
+    transaction_date date not null,
+    installments int4 not null,
+    transaction_value float8 not null,
     person_id int8,
     primary key (id)
 );

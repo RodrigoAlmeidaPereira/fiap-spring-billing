@@ -34,4 +34,8 @@ class TransactionServiceImpl(private val repository: TransactionRepository) : Tr
         return repository.findByPersonDoc(doc)
     }
 
+    override fun findAll(): List<Transaction> {
+        return repository.findAll()
+    }
+
 }

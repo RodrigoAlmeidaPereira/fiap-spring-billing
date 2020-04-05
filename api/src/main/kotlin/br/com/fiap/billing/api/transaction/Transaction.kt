@@ -1,13 +1,15 @@
 package br.com.fiap.billing.api.transaction
 
 import br.com.fiap.billing.api.person.Person
-import java.util.*
+import com.fasterxml.jackson.annotation.JsonFormat
+import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "transaction_")
 data class Transaction(
+
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
@@ -17,13 +19,14 @@ data class Transaction(
         var person : Person = Person(),
 
         @get: NotNull
-        var dateTransaction: Date = Date(),
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        var transactionDate: LocalDate = LocalDate.now(),
 
         @get: NotNull
-        var valueTransaction: Double = 0.0,
+        var transactionValue: Double = 0.0,
 
         @get: NotNull
-        var quantityPlots: Int = 1,
+        var installments: Int = 1,
 
         var cancelled : Boolean = false
 
