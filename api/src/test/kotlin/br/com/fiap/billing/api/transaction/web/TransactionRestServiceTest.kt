@@ -49,7 +49,7 @@ internal class TransactionRestServiceTest {
         service.create(entity)
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get("/transactions/extract/4321")
+                .get("/bills/transactions/extract/4321")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk)
@@ -62,7 +62,7 @@ internal class TransactionRestServiceTest {
         service.create(entity)
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get("/transactions")
+                .get("/bills/transactions")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk)
@@ -72,7 +72,7 @@ internal class TransactionRestServiceTest {
     @Test
     fun should_create_with_success(){
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/transactions")
+                .post("/bills/transactions")
                 .content(asJsonString(psotRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -84,7 +84,7 @@ internal class TransactionRestServiceTest {
     @Test
     fun should_simulate_with_success(){
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/transactions/simulate-data")
+                .post("/bills/transactions/simulate-data")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
@@ -94,7 +94,7 @@ internal class TransactionRestServiceTest {
     fun should_delete_with_success(){
         personService.create(person)
         service.create(entity)
-        mockMvc.perform( MockMvcRequestBuilders.delete("/transactions/{id}", 1) )
+        mockMvc.perform( MockMvcRequestBuilders.delete("/bills/transactions/{id}", 1) )
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful);
     }
 

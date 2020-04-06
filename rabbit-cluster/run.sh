@@ -7,7 +7,7 @@ function down_app_container() {
 
 function up_app_container() {
     echo "Starting latest docker image"
-    docker-compose up
+    docker-compose up -d
 }
 
 time (down_app_container)
