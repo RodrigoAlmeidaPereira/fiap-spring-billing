@@ -31,8 +31,8 @@ class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Fiap Billing API",
-                "API provides register for cred card transactions.",
+                "Fiap Billing Batch API",
+                "API para invocações de processes batch",
                 "API 0.1",
                 "Terms of service",
                 new Contact("Fiap", "www.fiap.com.br", "contato@fiap.com.br"),

@@ -30,7 +30,7 @@ class SwaggerConfiguration {
     private fun apiInfo(): ApiInfo {
         return ApiInfo(
                 "Fiap Billing API",
-                "API provides register for cred card transactions.",
+                "API para cadastro de alunos e trsansações de cartão de crédito.",
                 "API 0.1",
                 "Terms of service",
                 Contact("Fiap", "www.fiap.com.br", "contato@fiap.com.br"),
