@@ -4,6 +4,8 @@ import br.com.fiap.billing.api.person.Person
 import br.com.fiap.billing.api.person.PersonService
 import br.com.fiap.billing.api.transaction.Transaction
 import br.com.fiap.billing.api.transaction.TransactionService
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import java.io.IOException
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse
 import kotlin.random.Random
 
 
+@Api("API para Transações")
 @RestController
 @RequestMapping("/bills/transactions")
 class TransactionRestService(private val service : TransactionService,
@@ -21,30 +24,35 @@ class TransactionRestService(private val service : TransactionService,
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Cadastra um novo registro de transacão")
     fun create(@RequestBody transaction: Transaction) : Transaction {
         return service.create(transaction)
     }
 
-    @ResponseStatus(HttpStatus.ACCEPTED)
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiOperation("Busca a transação pelo id informado")
     fun delete(@PathVariable id : Long) : Boolean{
         return service.delete(id)
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/extract/{doc}")
+    @ApiOperation("Busca todas as trasnsações associadas ao documento informado")
     fun findByPersonDoc(@PathVariable doc : String) : List<Transaction>{
         return service.findByPersonDoc(doc)
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Busca todas as transações informadas")
     fun findAll() : List<Transaction> {
         return service.findAll()
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/simulate-data")
+    @ApiOperation("Gera massa simulada de transações")
     fun simulate(){
         personService.findAll()
                 .forEach { createSimulateData(it) }
@@ -52,6 +60,7 @@ class TransactionRestService(private val service : TransactionService,
 
     @Throws(IOException::class)
     @GetMapping("/csv-report.csv")
+    @ApiOperation("Exporta o relatório com todas as transações em CSV")
     fun csvReport(response: HttpServletResponse) {
         response.setContentType("text/csv");
         csvWriter.write(response.writer, service.findAll())
