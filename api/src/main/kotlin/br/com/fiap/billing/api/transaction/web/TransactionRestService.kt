@@ -13,7 +13,7 @@ import kotlin.random.Random
 
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/bills/transactions")
 class TransactionRestService(private val service : TransactionService,
                              private val personService: PersonService,
                              private val csvWriter: TransactionCsvWriter) {
@@ -58,17 +58,20 @@ class TransactionRestService(private val service : TransactionService,
     }
 
     fun createSimulateData(person: Person) {
-        val numberOfTransactions = Random.nextInt(1, 10)
 
-        for (i in 1 .. numberOfTransactions) {
-            val date = LocalDate.of(2020, Random.nextInt(1, 3), Random.nextInt(1, 29))
-            val transaction = Transaction(
-                    transactionValue = Random.nextDouble(20.0, 120.0),
-                    transactionDate = date,
-                    installments = Random.nextInt(1, 12),
-                    person = person)
+        val numberOfTransactions = Random.nextInt(-20, 2)
+        
+        if (numberOfTransactions > 0) {
+            for (i in 1 .. numberOfTransactions) {
+                val date = LocalDate.of(2020, Random.nextInt(1, 3), Random.nextInt(1, 29))
+                val transaction = Transaction(
+                        transactionValue = Random.nextDouble(20.0, 120.0),
+                        transactionDate = date,
+                        installments = Random.nextInt(1, 12),
+                        person = person)
 
-            service.create(transaction)
+                service.create(transaction)
+            }
         }
     }
 
