@@ -40,7 +40,7 @@ internal class TransactionRestServiceTest {
 
     private val person: Person = Person(id = 1, name = "Rodrigo", enrollment = "1234", doc = "4321", active = true)
     private val entity : Transaction = Transaction(1, person, LocalDate.now(), 425.5, 3)
-    private val psotRequest : PostRequest = PostRequest( person,"2019-01-12", 425.5, 3)
+    private val psotRequest : TransactionPostRequest = TransactionPostRequest( person.doc,"2019-01-12", 425.5, 3)
 
 
     @Test
@@ -107,20 +107,5 @@ internal class TransactionRestServiceTest {
             throw RuntimeException(e)
         }
     }
-
-    data class PostRequest (
-            var person : Person = Person(),
-
-            @get: NotNull
-            var transactionDate: String = "",
-
-            @get: NotNull
-            var transactionValue: Double = 0.0,
-
-            @get: NotNull
-            var installments: Int = 1,
-
-            var cancelled : Boolean = false
-    )
 
 }

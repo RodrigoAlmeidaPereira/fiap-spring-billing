@@ -1,5 +1,6 @@
 package br.com.fiap.billing.api.transaction.web
 
+import br.com.fiap.billing.api.core.exception.ResourceNotFoundException
 import br.com.fiap.billing.api.person.Person
 import br.com.fiap.billing.api.person.PersonService
 import br.com.fiap.billing.api.transaction.Transaction
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import java.io.IOException
 import java.time.LocalDate
+import java.util.*
 import javax.servlet.http.HttpServletResponse
 import kotlin.random.Random
 
@@ -25,7 +27,16 @@ class TransactionRestService(private val service : TransactionService,
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Cadastra um novo registro de transacão")
-    fun create(@RequestBody transaction: Transaction) : Transaction {
+    fun create(@RequestBody postRequest: TransactionPostRequest) : Transaction {
+
+        val person = personService.findByDoc(postRequest.personDoc);
+        if (Objects.isNull(person)) throw ResourceNotFoundException("Person not found with doc " + postRequest.personDoc)
+
+        val transaction = Transaction(person = person!!,
+                installments = postRequest.installments,
+                transactionValue = postRequest.transactionValue,
+                transactionDate = LocalDate.parse(postRequest.transactionDate))
+
         return service.create(transaction)
     }
 
