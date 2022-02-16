@@ -21,7 +21,7 @@
 		<spring-mockk.version>2.0.0</spring-mockk.version>
 		<h2.version>1.4.200</h2.version>
 		<springfox.version>2.9.2</springfox.version>
-		<postgresql.version>42.2.5</postgresql.version>
+		<postgresql.version>42.3.3</postgresql.version>
 		<opencsv.version>5.0</opencsv.version>
 	</properties>
 
